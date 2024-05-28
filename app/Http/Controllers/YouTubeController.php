@@ -65,7 +65,6 @@ class YouTubeController extends Controller
         $snippet->setTitle($request->input('title'));
         $snippet->setDescription($request->input('description'));
         $snippet->setTags(['tag1', 'tag2']);
-        $snippet->setCategoryId('22');
 
         $status = new VideoStatus();
         $status->privacyStatus = 'unlisted';
