@@ -54,11 +54,7 @@ class YouTubeController extends Controller
 
         $videoPath = $request->file('video')->store('videos');
         // dd($videoPath);
-        $video = Video::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'video_path' => $videoPath,
-        ]);
+
         $this->client->setAccessToken(session('access_token'));
 
         $youtube = new YouTube($this->client);
@@ -87,7 +83,12 @@ class YouTubeController extends Controller
                 'uploadType' => 'multipart'
             ]
         );
-        dd($response->id);
+        $video = Video::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'video_path' => $videoPath,
+            'video_id' => $response->id,
+        ]);
         return redirect('/upload')->with('status', 'Video Uploaded Successfully');
     }
 }
